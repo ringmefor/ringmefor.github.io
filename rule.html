@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- config:urls --><link rel="canonical" href="https://ringmefor.github.io/rule.html"><meta property="og:url" content="https://ringmefor.github.io/rule.html"><meta property="og:image" content="https://ringmefor.github.io/images/og.png"><!-- /config:urls -->
+<!-- config:smart-banner --><meta name="apple-itunes-app" content="app-id=6828677351"><!-- /config:smart-banner -->
+<title>A RingMeFor rule</title>
+<meta name="description" content="A rule someone shared from RingMeFor, the notification alarm for iPhone. Test it with a message, then add it to RingMeFor.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#f2f2f7">
+<link rel="icon" href="images/favicon-32.png" sizes="32x32">
+<link rel="icon" href="images/favicon-64.png" sizes="64x64">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="preload" href="fonts/Archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="site.css">
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="site-header">
+    <a class="wordmark" href="./">RingMeFor</a>
+    <nav aria-label="Main">
+      <a href="rulebook.html">Rulebook</a>
+      <a href="./#how-it-works">How it works</a>
+      <a href="./#price">Price</a>
+      <a href="help.html">Help</a>
+    </nav>
+  </header>
+
+  <main class="page-main shared-rule">
+    <div id="rule" hidden>
+      <h1 class="shared-name" id="name">A rule</h1>
+      <p class="shared-from" id="from"></p>
+      <div class="rule-list" id="slab"></div>
+    </div>
+    <div id="missing" hidden>
+      <h1 class="page-line">No rule here.</h1>
+      <p class="lead">This link has no rule in it. Ask whoever shared it to share the rule again from RingMeFor: open the rule, then tap Share Rule.</p>
+    </div>
+    <noscript><p class="lead">This page needs JavaScript to read the rule in its link. Or open the link on your iPhone, in Safari.</p></noscript>
+    <p class="shared-more"><a href="./">What's RingMeFor?</a> A notification alarm for iPhone: it rings a real alarm for the notifications that matter, even on Silent. <a data-config="store-link" href="https://apps.apple.com/us/app/ringmefor-notification-alarm/id6828677351">Get it on the App Store</a>.</p>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <nav aria-label="More">
+      <a href="help.html">Help</a>
+      <a href="privacy.html">Privacy policy</a>
+      <a href="press.html">Press</a>
+      <a href="mailto:lancemikaelo.enriquez@gmail.com">lancemikaelo.enriquez@gmail.com</a>
+    </nav>
+    <p>© 2026 Lance Mikaelo Enriquez</p>
+    <p>This site sets no cookies and loads nothing from other servers.</p>
+    <p>Apple, iPhone, Apple Watch and Dynamic Island are trademarks of Apple Inc., registered in the U.S. and other countries and regions. App Store is a service mark of Apple Inc., registered in the U.S. and other countries and regions. Other apps named on this site belong to their owners. RingMeFor isn't affiliated with them.</p>
+  </div>
+</footer>
+<script src="rule-engine.js"></script>
+<script src="qr.js"></script>
+<script src="rulebook.js"></script>
+<script>
+(function () {
+  // The rule is the base64url JSON after "#d=", written by RuleLink.encode in the app (or by
+  // the Rulebook). Nothing in it is trusted: rulebook.js escapes every text and checks every number.
+  var match = /(?:^|&)d=([A-Za-z0-9_-]+)/.exec(location.hash.slice(1));
+  var rule = null;
+  if (match && match[1].length <= 8000) {
+    try {
+      var base64 = match[1].replace(/-/g, "+").replace(/_/g, "/");
+      while (base64.length % 4) base64 += "=";
+      var bytes = Uint8Array.from(atob(base64), function (c) { return c.charCodeAt(0); });
+      rule = JSON.parse(new TextDecoder().decode(bytes));
+    } catch (error) {
+      rule = null;
+    }
+  }
+  if (!rule || typeof rule !== "object" || Array.isArray(rule) || !window.Rulebook) {
+    document.getElementById("missing").hidden = false;
+    return;
+  }
+  var appName = typeof rule.appName === "string" && rule.appName.trim() ? rule.appName.trim() : "App";
+  rule.appName = appName;
+  var name = typeof rule.name === "string" && rule.name.trim() ? rule.name.trim() : "Shared rule";
+  document.getElementById("name").textContent = name;
+  document.getElementById("from").textContent = "A rule for " + appName + ", shared from RingMeFor. Its words are whatever the person who shared it typed.";
+  document.title = name + " \u00B7 RingMeFor";
+  var store = document.querySelector('a[data-config="store-link"]');
+  Rulebook.showShared(document.getElementById("slab"), rule, match[1], { storeURL: store ? store.href : "" });
+  document.getElementById("rule").hidden = false;
+})();
+</script>
+</body>
+</html>
