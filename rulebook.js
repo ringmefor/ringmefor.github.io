@@ -241,7 +241,7 @@
       html += rule.sound === "silent" ? ", with no sound, just vibration"
         : SOUNDS[rule.sound] ? ", with the " + SOUNDS[rule.sound] + " sound" : ", with a sound of its own";
     }
-    if (rule.boost && BOOSTS[rule.boost]) html += ", boosted to " + BOOSTS[rule.boost];
+    if (rule.boost && BOOSTS[rule.boost]) html += ", at " + BOOSTS[rule.boost] + " loudness";
     if (rule.repeatUntilStopped) html += ", and ring again until I stop it";
     html += ".";
     // The mark stays on the line with the sentence's last word.
@@ -342,7 +342,7 @@
         clock(h.startMinute) + ", <strong>Until</strong> to " + clock(h.endMinute) + " and <strong>Days</strong> to " +
         esc(daysKey(h.weekdays) ? DAY_LABELS[daysKey(h.weekdays)] : shortDays(h.weekdays)) + ". " + PRO);
     }
-    if (rule.repeatUntilStopped) extras.push("Under <strong>Alarm</strong>, turn on <strong>Ring again</strong>. " + PRO);
+    if (rule.repeatUntilStopped) extras.push("Turn on <strong>Ring again</strong>, below the Alarm settings. " + PRO);
     var t = threshold(rule);
     var repeats = t
       ? "Under <strong>Repeats</strong>, turn on <strong>Only when it comes again</strong>, then set it to " + t.count + " times and <strong>Within</strong> to " +
