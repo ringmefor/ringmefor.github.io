@@ -348,7 +348,7 @@
       ? "Under <strong>Repeats</strong>, turn on <strong>Only when it comes again</strong>, then set it to " + t.count + " times and <strong>Within</strong> to " +
         minutesText(t.minutes) + ", and " + (t.samePerson ? "leave <strong>From the same person</strong> on." : "turn off <strong>From the same person</strong>.")
       : "";
-    var list = ["In RingMeFor, open " + app + " from the Home screen. If it isn't there, tap <strong>Add Apps</strong> and add it; its <strong>Connect</strong> steps add it to the RingMeFor shortcut."];
+    var list = ["In RingMeFor, open " + app + " from the Home screen. If it isn't there, tap <strong>Add Apps</strong> and add it: RingMeFor then shows how to add it to the RingMeFor shortcut."];
     var note = "";
     var readyT = ready && ready.threshold ? ready.threshold : null;
     var same = ready && ready.mode === rule.mode && !people.length &&
