@@ -16,7 +16,7 @@
 <link rel="icon" href="images/favicon-64.png" sizes="64x64">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="preload" href="fonts/Archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="site.css?v=e88ffbab">
+<link rel="stylesheet" href="site.css?v=5463263a">
 <script>
 // The theme picked on this site (theme.js), applied before the page draws.
 (function () {
@@ -87,6 +87,40 @@
   </div>
 </section>
 
+<section class="section tour" id="app" aria-labelledby="tour-title">
+  <div class="wrap">
+    <div class="tour-body">
+      <div class="tour-text">
+      <h2 id="tour-title">Show me the app.</h2>
+      <p class="lead">The real screens, from choosing your apps to seeing why it rang.</p>
+      <ol class="tour-list">
+        <li>
+          <button class="tour-item" type="button" aria-pressed="true" data-shot="0"><span class="tour-ask">Choose which apps can ring.</span><span class="tour-more">Each app says whether its notifications are reaching RingMeFor, and what it last rang for. One switch turns it all off, or on for a few hours.</span><span class="tour-time" aria-hidden="true"></span></button>
+          <figure class="phone tour-mini"><div class="phone-edge"><div class="phone-glass"><div class="phone-screen"><img src="images/app/home.webp" width="660" height="1434" alt="RingMeFor's Home screen: On, a Work group with Slack, Microsoft Teams and Outlook, each connected and showing what it last rang for, then Gmail and Calendar." loading="lazy" decoding="async"></div><span class="phone-island" aria-hidden="true"></span></div></div></figure>
+        </li>
+        <li>
+          <button class="tour-item" type="button" aria-pressed="false" data-shot="1"><span class="tour-ask">Ring only for the words and people you pick.</span><span class="tour-more">Words to ring for, words to never ring for, and people. Then times, days and repeats, if you want them.</span><span class="tour-time" aria-hidden="true"></span></button>
+          <figure class="phone tour-mini"><div class="phone-edge"><div class="phone-glass"><div class="phone-screen"><img src="images/app/rule.webp" width="660" height="1434" alt="A rule called Incidents that rings for certain words, outage, sev1, down and @here, or for messages from Priya Shah." loading="lazy" decoding="async"></div><span class="phone-island" aria-hidden="true"></span></div></div></figure>
+        </li>
+        <li>
+          <button class="tour-item" type="button" aria-pressed="false" data-shot="2"><span class="tour-ask">Choose how it rings.&nbsp;<span class="mark">Pro</span></span><span class="tour-more">A sound for each rule, Loudness, a countdown, a second button that opens the app, and ringing again if you sleep through it.</span><span class="tour-time" aria-hidden="true"></span></button>
+          <figure class="phone tour-mini"><div class="phone-edge"><div class="phone-glass"><div class="phone-screen"><img src="images/app/rule-alarm.webp" width="660" height="1434" alt="The rule's alarm settings: the Reactor sound, Louder, a second button that opens Slack, and Ring again every 2 minutes." loading="lazy" decoding="async"></div><span class="phone-island" aria-hidden="true"></span></div></div></figure>
+        </li>
+        <li>
+          <button class="tour-item" type="button" aria-pressed="false" data-shot="3"><span class="tour-ask">A real alarm, even on Silent.</span><span class="tour-more">It rings like the Clock app's alarms, through Silent mode and Focus, with Snooze and slide to stop.</span><span class="tour-time" aria-hidden="true"></span></button>
+          <figure class="phone tour-mini"><div class="phone-edge"><div class="phone-glass"><div class="phone-screen"><img src="images/app/alarm-0648.webp" width="660" height="1434" alt="The alarm on the Lock Screen at 6:48: Slack, #incidents: Checkout is down, with Snooze and slide to stop." loading="lazy" decoding="async"></div><span class="phone-island" hidden aria-hidden="true"></span></div></div></figure>
+        </li>
+        <li>
+          <button class="tour-item" type="button" aria-pressed="false" data-shot="4"><span class="tour-ask">See why it rang, or why it stayed quiet.</span><span class="tour-more">History keeps every alarm and every match that stayed quiet, with the rule and the reason.</span><span class="tour-time" aria-hidden="true"></span></button>
+          <figure class="phone tour-mini"><div class="phone-edge"><div class="phone-glass"><div class="phone-screen"><img src="images/app/history.webp" width="660" height="1434" alt="History: this week, 5 alarms from 1,748 notifications. Microsoft Teams from Alex Morgan and Slack #incidents rang today, each with the rule it matched." loading="lazy" decoding="async"></div><span class="phone-island" aria-hidden="true"></span></div></div></figure>
+        </li>
+      </ol>
+      </div>
+      <figure class="phone tour-phone"><div class="phone-edge"><div class="phone-glass"><div class="phone-screen"><img class="is-on" src="images/app/home.webp" width="660" height="1434" alt="RingMeFor's Home screen: On, a Work group with Slack, Microsoft Teams and Outlook, each connected and showing what it last rang for, then Gmail and Calendar." decoding="async"><img src="images/app/rule.webp" width="660" height="1434" alt="A rule called Incidents that rings for certain words, outage, sev1, down and @here, or for messages from Priya Shah." loading="lazy" decoding="async"><img src="images/app/rule-alarm.webp" width="660" height="1434" alt="The rule's alarm settings: the Reactor sound, Louder, a second button that opens Slack, and Ring again every 2 minutes." loading="lazy" decoding="async"><img data-island="off" src="images/app/alarm-0648.webp" width="660" height="1434" alt="The alarm on the Lock Screen at 6:48: Slack, #incidents: Checkout is down, with Snooze and slide to stop." loading="lazy" decoding="async"><img src="images/app/history.webp" width="660" height="1434" alt="History: this week, 5 alarms from 1,748 notifications. Microsoft Teams from Alex Morgan and Slack #incidents rang today, each with the rule it matched." loading="lazy" decoding="async"></div><span class="phone-island" aria-hidden="true"></span></div></div></figure>
+    </div>
+  </div>
+</section>
+
 <section class="section day" id="day" aria-labelledby="day-title">
   <div class="wrap">
     <h2 id="day-title">Show me a day.</h2>
@@ -153,12 +187,13 @@
     </ol>
 
     <h3>Set it up</h3>
-    <ol class="steps">
-      <li><span><a data-config="store-link" href="https://apps.apple.com/us/app/ringmefor-notification-alarm/id6828677351">Get RingMeFor</a> and choose your apps, then the words and people that matter in each.</span></li>
-      <li><span>Add the RingMeFor shortcut, and add your apps to it with +.</span></li>
-      <li><span>Turn on its automation: tap the arrow after its apps. It arrives switched off, and only you can turn it on.</span></li>
-      <li><span>Run Test with the Phone Locked, then lock your iPhone: a test alarm rings within about 20 seconds.</span></li>
+    <ol class="setup-shots">
+      <li><figure class="phone setup-phone"><div class="phone-edge"><div class="phone-glass"><div class="phone-screen"><img src="images/app/welcome.webp" width="660" height="1434" alt="RingMeFor's welcome screen: A real alarm for the messages you can't miss, even in Silent mode or a Focus, and Get Started." loading="lazy" decoding="async"></div><span class="phone-island" aria-hidden="true"></span></div></div></figure><p><span><a data-config="store-link" href="https://apps.apple.com/us/app/ringmefor-notification-alarm/id6828677351">Get RingMeFor</a> and choose your apps.</span></p></li>
+      <li><figure class="phone setup-phone"><div class="phone-edge"><div class="phone-glass"><div class="phone-screen"><img src="images/app/setup-1.webp" width="660" height="1434" alt="Setup, step 1 of 4: Add the RingMeFor shortcut, with Shortcuts' Add Shortcut screen and I already have it." loading="lazy" decoding="async"></div><span class="phone-island" aria-hidden="true"></span></div></div></figure><p><span>Add the RingMeFor shortcut.</span></p></li>
+      <li><figure class="phone setup-phone"><div class="phone-edge"><div class="phone-glass"><div class="phone-screen"><img src="images/app/setup-2.webp" width="660" height="1434" alt="Setup, step 2 of 4: Add Slack and Microsoft Teams to it. In Shortcuts, open RingMeFor, tap Edit, then + after the apps." loading="lazy" decoding="async"></div><span class="phone-island" aria-hidden="true"></span></div></div></figure><p><span>Add your apps to it with +.</span></p></li>
+      <li><figure class="phone setup-phone"><div class="phone-edge"><div class="phone-glass"><div class="phone-screen"><img src="images/app/setup-3.webp" width="660" height="1434" alt="Setup, step 3 of 4: Turn on its automation, with the shortcut's Automation switch on and Notify off." loading="lazy" decoding="async"></div><span class="phone-island" aria-hidden="true"></span></div></div></figure><p><span>Turn on its automation. It arrives switched off, and only you can turn it on.</span></p></li>
     </ol>
+    <p class="setup-last">Then run Test with the Phone Locked, and lock your iPhone: a test alarm rings within about 20 seconds.</p>
   </div>
 </section>
 
@@ -268,6 +303,7 @@
 </footer>
 
 <script src="home.js?v=91f752f2" defer></script>
+<script src="tour.js?v=32f6e0aa" defer></script>
 <script src="theme.js?v=ffcca006" defer></script>
 </body>
 </html>

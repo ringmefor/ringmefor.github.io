@@ -1171,3 +1171,201 @@ html:not(.js) .rule-toggle { display: none; }
   .rule-slab, .rule-slab::before { transition: none; }
   .rule-slab::before { transform: none; }
 }
+
+/* ---------- A drawn iPhone around the app's real screens ----------
+   Sized by its width (container units): a titanium edge, the black glass, the screen with its
+   corners, and the Dynamic Island, which screenshots never include. */
+
+.phone { container-type: inline-size; margin: 0; }
+.phone-edge {
+  padding: 1.1cqw;
+  border-radius: 17.4cqw;
+  background: linear-gradient(140deg, #ececef 0%, #a2a2a7 20%, #dcdce0 46%, #8d8d92 72%, #cfcfd4 100%);
+  box-shadow: 0 2.5cqw 7cqw -3cqw rgba(30, 26, 90, 0.38), 0 1cqw 2.4cqw -1cqw rgba(0, 0, 0, 0.3);
+}
+.phone-glass {
+  position: relative;
+  padding: 3.1cqw;
+  border-radius: 16.3cqw;
+  background: #000;
+}
+.phone-screen {
+  position: relative;
+  aspect-ratio: 660 / 1434;
+  border-radius: 12.4cqw;
+  overflow: hidden;
+  background: #f2f2f7;
+}
+.phone-screen img,
+.phone-screen video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.phone-island {
+  position: absolute;
+  top: 5.3cqw;
+  left: 50%;
+  width: 26.4cqw;
+  height: 7.6cqw;
+  transform: translateX(-50%);
+  border-radius: 4cqw;
+  background: #000;
+}
+
+/* ---------- Show me the app ----------
+   Chapters on the left; the one on screen rings like the first screen's notification. */
+
+.tour-body {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 24px;
+  align-items: start;
+}
+.tour-text { grid-column: 1 / span 7; }
+.tour-list { max-width: 660px; }
+.tour-list { margin: clamp(28px, 3.4vw, 44px) 0 0 -22px; }
+.tour-list li + li { margin-top: 4px; }
+.tour-phone { grid-column: 8 / span 5; width: min(330px, 100%); justify-self: center; }
+.phone-island[hidden], .phone.no-island .phone-island { display: none; }
+.tour-mini { display: none; }
+
+.tour-item {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 16px 22px 20px;
+  border: 0;
+  border-radius: 20px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.tour-ask {
+  display: block;
+  font-size: clamp(22px, 2.15vw, 30px);
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.tour-ask .mark { font-size: 13px; font-stretch: 100%; vertical-align: 0.4em; }
+.tour-more {
+  display: block;
+  max-width: 32em;
+  margin-top: 6px;
+  font-size: var(--t-ui);
+  line-height: 1.45;
+  color: var(--muted);
+}
+.tour-item:hover .tour-ask { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.16em; }
+
+/* On screen: it rings. */
+.tour-item[aria-pressed="true"] { background: var(--indigo); color: #fff; }
+.tour-item[aria-pressed="true"] .tour-ask { font-weight: 900; font-stretch: 112%; letter-spacing: -0.015em; text-decoration: none; }
+.tour-item[aria-pressed="true"] .tour-more { color: rgba(255, 255, 255, 0.82); }
+.tour-item[aria-pressed="true"]::before {
+  content: "";
+  position: absolute;
+  inset: -8px -4px;
+  z-index: -1;
+  border-radius: 28px;
+  background: rgba(99, 91, 255, 0.45);
+  filter: blur(20px);
+}
+.tour-item:focus-visible { outline-offset: 4px; }
+
+/* How long this chapter stays on screen, while the tour plays by itself. */
+.tour-time {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 9px;
+  height: 2px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.9);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+}
+.tour.is-playing .tour-item[aria-pressed="true"] .tour-time {
+  opacity: 1;
+  animation: tour-time var(--tour-step, 5s) linear forwards;
+}
+@keyframes tour-time { to { transform: scaleX(1); } }
+
+.js .tour-phone .phone-screen img { opacity: 0; transition: opacity 280ms ease-out; }
+.js .tour-phone .phone-screen img.is-on { opacity: 1; }
+html:not(.js) .tour-phone .phone-screen img:not(:first-child) { display: none; }
+
+/* Narrow: no chapters to follow; each screen with its words, side by side, to swipe through. */
+@media (max-width: 900px) {
+  .tour-body { display: block; }
+  .tour-phone { display: none; }
+  .tour-list {
+    display: flex;
+    margin-left: calc(-1 * var(--gutter));
+    gap: 16px;
+    margin: 0 calc(-1 * var(--gutter));
+    padding: 8px var(--gutter) 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 var(--gutter);
+    scrollbar-width: none;
+  }
+  .tour-list::-webkit-scrollbar { display: none; }
+  .tour-list li { flex: 0 0 min(64vw, 280px); scroll-snap-align: start; display: flex; flex-direction: column; }
+  .tour-list li + li { margin-top: 0; }
+  .tour-mini { display: block; order: -1; width: 100%; margin-bottom: 18px; }
+  .tour-item, .tour-item[aria-pressed="true"] { padding: 0; background: none; color: inherit; cursor: default; }
+  .tour-item[aria-pressed="true"]::before, .tour-time { display: none; }
+  .tour-item[aria-pressed="true"] .tour-ask { font-weight: 300; font-stretch: 100%; letter-spacing: -0.01em; }
+  .tour-item[aria-pressed="true"] .tour-more { color: var(--muted); }
+  .tour-item:hover .tour-ask { text-decoration: none; }
+  .tour-ask { font-size: 22px; }
+}
+
+/* ---------- Set it up: the setup's own pages, in order ---------- */
+
+.setup-shots {
+  counter-reset: step;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px clamp(20px, 3vw, 44px);
+  margin-top: 28px;
+}
+.setup-shots li { counter-increment: step; }
+.setup-shots .phone { width: min(240px, 100%); }
+.setup-shots p {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr);
+  margin-top: 20px;
+  max-width: 17em;
+  line-height: 1.4;
+}
+.setup-shots p::before { content: counter(step); color: var(--muted); font-variant-numeric: tabular-nums; }
+.setup-last { margin-top: 32px; max-width: 40em; }
+
+@media (max-width: 900px) {
+  .setup-shots {
+    display: flex;
+    gap: 16px;
+    margin: 20px calc(-1 * var(--gutter)) 0;
+    padding: 8px var(--gutter) 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 0 var(--gutter);
+    scrollbar-width: none;
+  }
+  .setup-shots::-webkit-scrollbar { display: none; }
+  .setup-shots li { flex: 0 0 min(50vw, 220px); scroll-snap-align: start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .tour-phone .phone-screen img { transition: none; }
+  .tour.is-playing .tour-item[aria-pressed="true"] .tour-time { animation: none; opacity: 0; }
+}
