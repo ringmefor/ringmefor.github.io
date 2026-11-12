@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rulebook: alarm rules for the apps you work in · RingMeFor</title>
-<meta name="description" content="Ready-made RingMeFor rules for on call, clients, markets, shifts, travel and meetings. Change the words, test a message, and add the rule to the notification alarm on your iPhone.">
+<title>Rulebook: alarm rules for the messages you can't miss · RingMeFor</title>
+<meta name="description" content="Ready-made RingMeFor rules for family, someone who keeps trying, your name, on call at night, money at risk, the door and the one message you're waiting for. Change the words, test a message, and add the rule to the notification alarm on your iPhone.">
 <!-- config:urls --><link rel="canonical" href="https://ringmefor.github.io/rulebook.html"><meta property="og:url" content="https://ringmefor.github.io/rulebook.html"><meta property="og:image" content="https://ringmefor.github.io/images/og.png"><!-- /config:urls -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="Rulebook: alarm rules for the apps you work in">
-<meta property="og:description" content="Ready-made RingMeFor rules for on call, clients, markets, shifts, travel and meetings. Change the words, test a message, then add the rule.">
+<meta property="og:title" content="Rulebook: alarm rules for the messages you can't miss">
+<meta property="og:description" content="Ready-made RingMeFor rules for family, someone who keeps trying, your name, on call at night, money at risk, the door and the one message you're waiting for. Change the words, test a message, then add the rule.">
 <meta name="twitter:card" content="summary_large_image">
 <!-- config:smart-banner --><meta name="apple-itunes-app" content="app-id=6828677351"><!-- /config:smart-banner -->
 <meta name="theme-color" content="#f2f2f7">
@@ -17,7 +17,17 @@
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="preload" href="fonts/Archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="site.css">
-<script>document.documentElement.classList.add("js");</script>
+<script>
+// The theme picked on this site (theme.js), applied before the page draws.
+(function () {
+  var root = document.documentElement;
+  root.classList.add("js");
+  try {
+    var theme = localStorage.getItem("ringmefor-theme");
+    if (theme === "light" || theme === "dark") root.setAttribute("data-theme", theme);
+  } catch (error) {}
+})();
+</script>
 </head>
 <body>
 
@@ -30,11 +40,12 @@
       <a href="./#price">Price</a>
       <a href="help.html">Help</a>
     </nav>
+    <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Dark mode"><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
   </header>
 
   <main class="page-main rulebook" id="rulebook" data-add="off"><!-- rulebook:start -->
     <h1 class="page-line">Ring me for…</h1>
-    <p class="lead">Rules for the work you do. Change the words to yours, test a message, then add the rule to RingMeFor.</p>
+    <p class="lead">Rules for the messages you can't miss. Change the words to yours, test a message, then add the rule to RingMeFor.</p>
     <nav class="jump" aria-label="Groups of rules"><a href="#family">Family</a> <a href="#keeps-trying">Someone keeps trying</a> <a href="#your-name">Your name</a> <a href="#on-call">On call at night</a> <a href="#money">Money at risk</a> <a href="#at-the-door">At the door</a> <a href="#waiting">Waiting on one thing</a></nav>
     <p class="privacy-line">What you type on this page stays in your browser. It isn't sent anywhere.</p>
     <section class="rule-group" id="family" aria-labelledby="family-title">
@@ -92,13 +103,22 @@
       <a href="press.html">Press</a>
       <a href="mailto:lancemikaelo.enriquez@gmail.com">lancemikaelo.enriquez@gmail.com</a>
     </nav>
+    <fieldset class="appearance">
+      <legend>Appearance</legend>
+      <div class="segment">
+        <label><input type="radio" name="appearance" value="system"><span>System</span></label>
+        <label><input type="radio" name="appearance" value="light"><span>Light</span></label>
+        <label><input type="radio" name="appearance" value="dark"><span>Dark</span></label>
+      </div>
+    </fieldset>
     <p>© 2026 Lance Mikaelo Enriquez</p>
-    <p>This site sets no cookies and loads nothing from other servers.</p>
+    <p>This site sets no cookies and loads nothing from other servers. Light or Dark, once picked, is kept in this browser only.</p>
     <p>Apple, iPhone, Apple Watch and Dynamic Island are trademarks of Apple Inc., registered in the U.S. and other countries and regions. App Store is a service mark of Apple Inc., registered in the U.S. and other countries and regions. Other apps named on this site belong to their owners. RingMeFor isn't affiliated with them.</p>
   </div>
 </footer>
 <script src="rule-engine.js" defer></script>
 <script src="qr.js" defer></script>
 <script src="rulebook.js" defer></script>
+<script src="theme.js" defer></script>
 </body>
 </html>

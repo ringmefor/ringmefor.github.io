@@ -1,6 +1,8 @@
 /* RingMeFor site. One face, three grounds: quiet (#F2F2F7), ringing (indigo) and night (black).
    Weight is volume: nothing is heavier than 450 unless it rings (the wordmark is exempt).
-   The same colors in dark mode: the sequence quiet, ringing, night carries meaning. */
+   Dark mode follows the iPhone app's dark lists: a black ground with #1C1C1E slabs, so the whole
+   page becomes night and the indigo still rings. The page follows the system setting unless the
+   visitor picks Light or Dark (theme.js), which sets data-theme on <html>. */
 
 @font-face {
   font-family: "Archivo";
@@ -20,6 +22,13 @@
   --on-indigo-quiet: rgba(255, 255, 255, 0.7);
   --night: #000000;
   --night-muted: #a1a1a6;
+  --on-ink: #ffffff;
+  --indigo-text: #635bff;
+  --hairline: rgba(60, 60, 67, 0.14);
+  --underline-muted: rgba(99, 99, 102, 0.45);
+  --field-tint: rgba(99, 91, 255, 0.1);
+  /* The drawn arrows in "How it works" are black SVGs; dark mode turns them white. */
+  --arrow-filter: none;
 
   --face: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --gutter: clamp(20px, 5.6vw, 80px);
@@ -40,6 +49,36 @@
   --s-lines: 2;
 
   color-scheme: light;
+}
+
+/* Dark: the system's setting, unless the visitor picked Light; or the visitor picked Dark. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #000000;
+    --slab: #1c1c1e;
+    --ink: #ffffff;
+    --muted: #98989f;
+    --on-ink: #000000;
+    --indigo-text: #8f8aff;
+    --hairline: rgba(235, 235, 245, 0.16);
+    --underline-muted: rgba(152, 152, 159, 0.5);
+    --field-tint: rgba(143, 138, 255, 0.18);
+    --arrow-filter: invert(1);
+    color-scheme: dark;
+}
+}
+:root[data-theme="dark"] {
+  --ground: #000000;
+  --slab: #1c1c1e;
+  --ink: #ffffff;
+  --muted: #98989f;
+  --on-ink: #000000;
+  --indigo-text: #8f8aff;
+  --hairline: rgba(235, 235, 245, 0.16);
+  --underline-muted: rgba(152, 152, 159, 0.5);
+  --field-tint: rgba(143, 138, 255, 0.18);
+  --arrow-filter: invert(1);
+  color-scheme: dark;
 }
 
 @media (max-width: 720px) {
@@ -131,11 +170,76 @@ time, .tabular { font-variant-numeric: tabular-nums; }
 
 .site-header nav a { text-decoration: none; }
 .site-header nav a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
+.site-header nav { margin-left: auto; }
+
+/* Light and dark (theme.js). Both controls need JavaScript, so they show only with it. The
+   button shows the mode it switches to: a moon in light, a sun in dark. */
+.theme-toggle,
+.appearance { display: none; }
+.js .theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  margin: 0 -11px 0 -6px;
+  padding: 0;
+  border: 0;
+  border-radius: 22px;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+.theme-toggle svg { width: 21px; height: 21px; }
+.theme-toggle .icon-sun,
+.theme-toggle[aria-pressed="true"] .icon-moon { display: none; }
+.theme-toggle[aria-pressed="true"] .icon-sun { display: block; }
+.theme-toggle:hover { background: var(--hairline); }
+
+.js .appearance {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  min-inline-size: 0;
+  margin: 0 0 20px;
+  padding: 0;
+  border: 0;
+}
+.appearance legend { float: left; padding: 0; margin-right: 14px; color: var(--muted); font-size: var(--t-ui); }
+.appearance .segment {
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 22px;
+  background: var(--slab);
+  font-size: var(--t-ui);
+  color: var(--ink);
+}
+.appearance label { position: relative; display: block; }
+.appearance input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.appearance label span {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 16px;
+  border-radius: 18px;
+}
+.appearance input:checked + span { background: var(--ink); color: var(--on-ink); }
+.appearance input:focus-visible + span { outline: 3px solid var(--indigo); outline-offset: 2px; }
 
 @media (max-width: 600px) {
-  .site-header { height: 56px; }
+  .site-header { height: 56px; gap: 12px; }
   .wordmark { font-size: 17px; }
-  .site-header nav { gap: 13px; font-stretch: 88%; }
+  .site-header nav { gap: 10px; font-stretch: 78%; }
+  .js .theme-toggle { margin: 0 -12px 0 -10px; }
 }
 
 /* ---------- Buttons ---------- */
@@ -155,7 +259,7 @@ time, .tabular { font-variant-numeric: tabular-nums; }
   text-decoration: none;
   cursor: pointer;
   background: var(--ink);
-  color: #fff;
+  color: var(--on-ink);
 }
 
 .button.label { cursor: default; }
@@ -351,7 +455,7 @@ time, .tabular { font-variant-numeric: tabular-nums; }
   background: rgba(214, 211, 255, 0.75);
   animation: halo 1.1s ease-in-out infinite alternate;
 }
-.first[data-state="ringing"] .button { background: #fff; color: var(--ink); }
+.first[data-state="ringing"] .button { background: #fff; color: #000; }
 .first[data-state="ringing"] .button.secondary { background: var(--slab-on-indigo); color: #fff; }
 .first[data-state="ringing"] :focus-visible { outline-color: #fff; }
 
@@ -378,7 +482,7 @@ time, .tabular { font-variant-numeric: tabular-nums; }
 .alarm-row .button[hidden] { display: none; }
 .invite { font-size: var(--t-note); max-width: 34em; }
 .invite:focus { outline: none; }
-.button.secondary { background: var(--ink); color: #fff; }
+.button.secondary { background: var(--ink); color: var(--on-ink); }
 .button svg { width: 16px; height: 16px; flex: none; }
 
 @media (max-width: 600px) {
@@ -451,7 +555,7 @@ time, .tabular { font-variant-numeric: tabular-nums; }
 .log .rang .rule, .night-log .ring .rule { grid-area: rule; }
 .log .rang time,
 .log .rang .msg {
-  color: var(--indigo);
+  color: var(--indigo-text);
   font-size: var(--t-log-ring);
   font-weight: 900;
   font-stretch: 125%;
@@ -619,6 +723,7 @@ time, .tabular { font-variant-numeric: tabular-nums; }
 }
 .path > li { display: flex; align-items: center; }
 .path > li + li::before {
+  filter: var(--arrow-filter);
   content: "";
   flex: none;
   width: 64px;
@@ -637,6 +742,7 @@ time, .tabular { font-variant-numeric: tabular-nums; }
   align-items: center;
 }
 .path > .path-end::before {
+  filter: var(--arrow-filter);
   grid-column: 1;
   grid-row: 1 / span 2;
   height: 64px;
@@ -840,7 +946,7 @@ ol.fix li::before { content: counter(fix); color: var(--muted); font-variant-num
 }
 
 .help-shot { margin: 16px 0 6px; max-width: 440px; }
-.help-shot img { display: block; width: 100%; height: auto; border-radius: 18px; }
+.help-shot img { display: block; width: 100%; height: auto; border-radius: 18px; box-shadow: 0 0 0 1px var(--hairline); }
 
 /* ---------- Rulebook: rules to change, test and add ---------- */
 /* Each rule is a slab on the quiet ground. It rings (indigo, with the glow rising behind it) only
@@ -924,7 +1030,7 @@ ol.fix li::before { content: counter(fix); color: var(--muted); font-variant-num
   border: 0;
   border-bottom: 2px solid var(--indigo);
   border-radius: 6px 6px 0 0;
-  background: rgba(99, 91, 255, 0.1);
+  background: var(--field-tint);
   color: inherit;
   font: inherit;
   letter-spacing: inherit;
@@ -975,7 +1081,7 @@ ol.fix li::before { content: counter(fix); color: var(--muted); font-variant-num
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
-  text-decoration-color: rgba(99, 99, 102, 0.45);
+  text-decoration-color: var(--underline-muted);
 }
 .sample:hover { color: var(--ink); text-decoration-color: currentColor; }
 .answer { margin-top: 14px; max-width: 34em; min-height: 1.35em; font-size: var(--t-body); line-height: 1.35; }
@@ -1022,7 +1128,7 @@ html:not(.js) .rule-toggle { display: none; }
   grid-area: steps;
   margin-top: 24px;
   padding-top: 20px;
-  border-top: 1px solid rgba(60, 60, 67, 0.14);
+  border-top: 1px solid var(--hairline);
   font-size: var(--t-body);
   line-height: 1.4;
 }
@@ -1040,7 +1146,7 @@ html:not(.js) .rule-toggle { display: none; }
 .rule-slab.ringing .rule-fallback { color: var(--on-indigo-quiet); }
 .rule-slab.ringing .sample { text-decoration-color: rgba(255, 255, 255, 0.45); }
 .rule-slab.ringing .sample:hover { color: #fff; }
-.rule-slab.ringing .button { background: #fff; color: var(--ink); }
+.rule-slab.ringing .button { background: #fff; color: #000; }
 .rule-slab.ringing .rule-steps { border-top-color: rgba(255, 255, 255, 0.28); }
 .rule-slab.ringing :focus-visible { outline-color: #fff; }
 

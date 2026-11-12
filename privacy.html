@@ -17,6 +17,17 @@
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="preload" href="fonts/Archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="site.css">
+<script>
+// The theme picked on this site (theme.js), applied before the page draws.
+(function () {
+  var root = document.documentElement;
+  root.classList.add("js");
+  try {
+    var theme = localStorage.getItem("ringmefor-theme");
+    if (theme === "light" || theme === "dark") root.setAttribute("data-theme", theme);
+  } catch (error) {}
+})();
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -28,11 +39,12 @@
       <a href="./#price">Price</a>
       <a href="help.html">Help</a>
     </nav>
+    <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Dark mode"><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
   </header>
 
   <main class="page-main policy">
     <h1 class="page-line" id="privacy-policy">Keep it on my iPhone.</h1>
-    <p class="policy-meta">Privacy policy. Last updated November 11, 2026. Applies to RingMeFor 1.0 and 1.0.1.</p>
+    <p class="policy-meta">Privacy policy. Last updated November 12, 2026. Applies to RingMeFor 1.0 and 1.0.1.</p>
     <p class="lead">No account and no server. RingMeFor checks your notifications on your iPhone, and the developer never receives them, your rules or your History. Nothing reaches the developer unless you send a support email, or let Apple share crash reports with app developers.</p>
 
     <table class="policy-table">
@@ -40,7 +52,7 @@
   <thead><tr><th scope="col">What</th><th scope="col">Where it lives</th><th scope="col">Who can read it</th></tr></thead>
   <tbody>
     <tr><th scope="row">Notifications from your apps</th><td data-label="Where it lives">Checked on your iPhone as they arrive</td><td data-label="Who can read it">Only you</td></tr>
-    <tr><th scope="row">Apps, rules and settings</th><td data-label="Where it lives">On your iPhone, and in your own iCloud account while iCloud sync is on (1.0.1 and later, where it's on unless you turn it off)</td><td data-label="Who can read it">Only you</td></tr>
+    <tr><th scope="row">Apps, groups, rules and settings</th><td data-label="Where it lives">On your iPhone, and in your own iCloud account while iCloud sync is on (1.0.1 and later, where it's on unless you turn it off)</td><td data-label="Who can read it">Only you</td></tr>
     <tr><th scope="row">History</th><td data-label="Where it lives">On your iPhone, up to 300 entries (1,000 with Pro, from 1.0.1). It isn't synced.</td><td data-label="Who can read it">Only you</td></tr>
     <tr><th scope="row">Alarm titles</th><td data-label="Where it lives">On the Lock Screen, in StandBy and on a paired Apple Watch while they ring; kept for about half an hour after</td><td data-label="Who can read it">Anyone who can see your screen</td></tr>
     <tr><th scope="row">iCloud sync (1.0.1 and later)</th><td data-label="Where it lives">Your own iCloud account. Sync is on unless you turn it off.</td><td data-label="Who can read it">You. The developer can't see it.</td></tr>
@@ -59,8 +71,8 @@
 <ul>
   <li><strong>Notifications from the apps in your RingMeFor shortcut.</strong> The Shortcuts automation you add passes RingMeFor each notification's app, title and text, and, with the RingMeFor shortcut shared on November 9, 2026 or later (its Check Notification action shows Shortcut Version 1 or higher), its subtitle, sender, when it was sent and whether it's Time Sensitive. RingMeFor checks it against your rules, on your iPhone.</li>
   <li>Notifications from the ready-made apps you haven't added in RingMeFor are ignored and not kept. If the shortcut passes a notification from an app RingMeFor doesn't know, because you added that app to the shortcut or because iOS reports an app under another app's name, RingMeFor adds it to your apps by name, with no rules, and keeps none of its messages until you add a rule to it or turn it on. If you remove an app that RingMeFor added this way, it isn't added again. If RingMeFor can't tell which app a notification came from, History notes that, with the first 40 characters of what arrived as the app's name so you can fix the shortcut; the message isn't kept.</li>
-  <li><strong>What it keeps:</strong> your apps, rules and settings; a History of the notifications it checks from your apps, including ones that didn't ring, with up to 140 characters of each message and up to 80 of its title, subtitle and sender, when it was sent and arrived, whether it was Time Sensitive, the word or person that matched, and what RingMeFor did; the titles of alarms it has set, for about half an hour after they ring; when each rule last rang; and when it last heard from each app and from the shortcut and how its self-tests went, so it can tell you if something stops working. History keeps at most 300 entries (1,000 with RingMeFor Pro, from version 1.0.1), and older ones are removed. Show Every Notification in History changes only what's shown, not what's kept. When a rule last rang is kept until the rule is deleted. When RingMeFor last heard from an app is kept until the app is removed, and the records of the shortcut and the self-tests until you erase RingMeFor's data or delete it.</li>
-  <li><strong>Alarms</strong> show the app and the notification's title when that is who it's from, as in chat and email apps; for apps such as reminders, calendar, alerts, trading, payments and cameras, they show the app and the rule's name instead. Turn on Show the message to add the first line of the message; anyone who can see your Lock Screen, StandBy or Apple Watch can then read it. Alarms appear on your Lock Screen, in StandBy and on a paired Apple Watch, even if you hide notification previews. While an alarm is snoozed, its title also shows in a countdown on the Lock Screen, Apple Watch, CarPlay and a Mac that mirrors your iPhone. While RingMeFor is on for a set time, a Live Activity on the Lock Screen lists the names of your apps.</li>
+  <li><strong>What it keeps:</strong> your apps, groups, rules and settings, and sounds you add; a History of the notifications it checks from your apps, including ones that didn't ring, with up to 140 characters of each message and up to 80 of its title, subtitle and sender, when it was sent and arrived, whether it was Time Sensitive, the word or person that matched, the rule and, for a group's rule, the group's name, and what RingMeFor did; the titles of alarms it has set, for about half an hour after they ring; when each rule last rang; and when it last heard from each app and from the shortcut and how its self-tests went, so it can tell you if something stops working. History keeps at most 300 entries (1,000 with RingMeFor Pro, from version 1.0.1), and older ones are removed. Show Every Notification in History changes only what's shown, not what's kept. When a rule last rang is kept until the rule is deleted. When RingMeFor last heard from an app is kept until the app is removed, and the records of the shortcut and the self-tests until you erase RingMeFor's data or delete it.</li>
+  <li><strong>Alarms</strong> show the app and the notification's title when that is who it's from, as in chat and email apps; for apps such as reminders, calendar, alerts, trading, payments and cameras, they show the app and the rule's name instead. Turn on Show the message to add the first line of the message; anyone who can see your Lock Screen, StandBy or Apple Watch can then read it. Alarms appear on your Lock Screen, in StandBy and on a paired Apple Watch, even if you hide notification previews. While an alarm is snoozed or counting down before it rings, its title also shows in a countdown on the Lock Screen, Apple Watch, CarPlay and a Mac that mirrors your iPhone. While RingMeFor is on for a set time, a Live Activity on the Lock Screen lists the names of your apps.</li>
   <li><strong>Self-tests:</strong> if you use them, RingMeFor schedules its own notifications on your iPhone, and your RingMeFor shortcut passes them back like any other notification.</li>
   <li><strong>Where it's stored:</strong> RingMeFor's data is stored in its own folder on your iPhone and encrypted by iOS like other apps' data. Because the shortcut must reach RingMeFor while your iPhone is locked, RingMeFor can read its data from the first time you unlock your iPhone after a restart, as most apps can.</li>
 </ul>
@@ -69,9 +81,9 @@
 <p>Nothing, from RingMeFor. It sends nothing to the developer or anyone else, and contains no third-party code that does. Apple's own services work as usual, and a few buttons hand things to other apps:</p>
 <ul>
   <li><strong>Backups:</strong> if you use iCloud Backup or back up to a computer, RingMeFor's data is included, like other apps' data.</li>
-  <li><strong>iCloud sync (version 1.0.1 and later):</strong> Sync with iCloud, in Settings → Your Data, is on unless you turn it off. While it's on, your apps, rules and alarm settings are kept in your own iCloud account through Apple's iCloud key-value storage, so your iPhones signed in to the same Apple Account share them. History, notifications and how each iPhone is connected aren't synced. The developer can't see what's in your iCloud account. Turn the switch off to stop syncing. Turning it off, or deleting RingMeFor, leaves the last synced copy in your iCloud account; Erase All Data removes it.</li>
+  <li><strong>iCloud sync (version 1.0.1 and later):</strong> Sync with iCloud, in Settings → Your Data, is on unless you turn it off. While it's on, your apps, groups, rules and alarm settings are kept in your own iCloud account through Apple's iCloud key-value storage, so your iPhones signed in to the same Apple Account share them. History, notifications and how each iPhone is connected aren't synced. The developer can't see what's in your iCloud account. Turn the switch off to stop syncing. Turning it off, or deleting RingMeFor, leaves the last synced copy in your iCloud account; Erase All Data removes it.</li>
   <li><strong>Calendar (version 1.0.1 and later):</strong> if you turn on Use Event Details on Calendar's page in RingMeFor and allow full access to your calendars, RingMeFor reads the matching event's location, notes and invitees on your iPhone when a Calendar alert arrives, so your rules can match them. Like any notification, up to 140 characters of it can appear in History; the event details aren't kept anywhere else. Nothing is read otherwise, and you can turn it off there or in Settings → Privacy &amp; Security → Calendars.</li>
-  <li><strong>Sounds, exports and shared rules (version 1.0.1 and later):</strong> sounds you add from Files are copied into RingMeFor's folder. Export Apps and Rules makes a file with your apps, rules, settings and added sounds, but not History, and you choose where it goes. Share Rule makes a link that holds the rule's name, words, people and settings, but no sounds or notifications; anyone who has the link can read them. The rule page on this website reads the rule in your browser from the part of the link after "#", which browsers don't send to the website. Copy Diagnostics, in Settings → About, copies the same status as Email Support to your clipboard.</li>
+  <li><strong>Sounds, exports and shared rules (version 1.0.1 and later):</strong> sounds you add from Files are copied into RingMeFor's folder. Export Apps and Rules makes a file with your apps, groups, rules, settings and added sounds, but not History, and you choose where it goes. Share Rule makes a link that holds the rule's name, words, people and settings, but no sounds, groups or notifications; anyone who has the link can read them. The rule page on this website reads the rule in your browser from the part of the link after "#", which browsers don't send to the website. Copy Diagnostics, in Settings → About, copies the same status as Email Support to your clipboard.</li>
   <li><strong>Crash reports:</strong> if you turn on Share With App Developers (Settings → Privacy &amp; Security → Analytics &amp; Improvements), Apple may share crash reports with the developer. They don't include your notifications or History, and RingMeFor doesn't write the names of your apps or anything from your notifications to the iPhone's device log.</li>
   <li><strong>Purchases:</strong> RingMeFor Pro is bought through the App Store. Apple handles the payment, and the developer never sees your payment details. RingMeFor checks the purchase on your iPhone with Apple's StoreKit.</li>
   <li><strong>Siri:</strong> if you ask Siri to turn RingMeFor on or off, or ask whether it's on, Apple handles the request under its own <a href="https://www.apple.com/legal/privacy/">privacy policy</a>.</li>
@@ -82,8 +94,8 @@
 <h2 id="deleting">Deleting your data</h2>
 <ul>
   <li>To clear History: in RingMeFor, tap <strong>History</strong>, then the <strong>•••</strong> button, then <strong>Clear History</strong>, and confirm. This also deletes any copy RingMeFor kept of a data file it couldn't read; such copies are otherwise deleted after 7 days.</li>
-  <li>To delete an app and its rules, tap it on RingMeFor's Home screen, then the <strong>Remove</strong> button at the bottom of its page. Removing an app also deletes its History entries. To delete one rule, open it and tap <strong>Delete Rule</strong>.</li>
-  <li>From version 1.0.1, Settings → Your Data → Erase All Data deletes your apps, rules, History, settings and added sounds from your iPhone and from iCloud, and cancels alarms already set. Your RingMeFor Pro purchase stays with your Apple Account.</li>
+  <li>To delete an app and its rules, tap it on RingMeFor's Home screen, then the <strong>Remove</strong> button at the bottom of its page. Removing an app also deletes its History entries. To delete one rule, open it and tap <strong>Delete Rule</strong>. To delete a group and its rules (version 1.0.1 and later), open it and tap <strong>Delete Group</strong>; its apps stay. Sounds you added are deleted in Settings → Your Sounds.</li>
+  <li>From version 1.0.1, Settings → Your Data → Erase All Data deletes your apps, groups, rules, History, settings and added sounds from your iPhone and from iCloud, cancels alarms already set, and turns iCloud sync off on that iPhone. If RingMeFor on another of your iPhones still syncs, that iPhone keeps its apps and rules and puts its copy back in iCloud; erase there too to remove it. Your RingMeFor Pro purchase stays with your Apple Account.</li>
   <li>To delete everything, delete RingMeFor. Deleting RingMeFor doesn't delete the shortcut or its automation: Shortcuts keeps running it for those apps' notifications until you delete it there, so delete the RingMeFor shortcut in Shortcuts too.</li>
 </ul>
 <p>Your own backups may hold a copy of RingMeFor's data until they're replaced. The developer has no copy of your data, so there's nothing to request from the developer, and what you delete can't be recovered, except from your own backups.</p>
@@ -92,7 +104,7 @@
 <p>Because nothing reaches the developer, apart from emails you send, there's nothing the developer can look up, correct, export or delete for you. You control all of it on your iPhone, as described above.</p>
 
 <h2 id="this-website">This website</h2>
-<p>This website sets no cookies, has no analytics and loads nothing from other servers. It's hosted on GitHub Pages, which logs visitors' IP addresses under <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>. A word you type on the home page stays in your browser, and the rule page reads a shared rule in your browser; neither sends anything.</p>
+<p>This website sets no cookies, has no analytics and loads nothing from other servers. It's hosted on GitHub Pages, which logs visitors' IP addresses under <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>. A word you type on the home page stays in your browser, and the rule page reads a shared rule in your browser; neither sends anything. If you pick Light or Dark under Appearance, or with the button at the top of a page, the choice is kept in your browser's local storage on that device, so the next page opens the same way; it isn't sent anywhere, and picking System removes it.</p>
 
 <h2 id="children">Children</h2>
 <p>RingMeFor isn't directed at children, and it collects no data from anyone.</p>
@@ -114,10 +126,19 @@
       <a href="press.html">Press</a>
       <a href="mailto:lancemikaelo.enriquez@gmail.com">lancemikaelo.enriquez@gmail.com</a>
     </nav>
+    <fieldset class="appearance">
+      <legend>Appearance</legend>
+      <div class="segment">
+        <label><input type="radio" name="appearance" value="system"><span>System</span></label>
+        <label><input type="radio" name="appearance" value="light"><span>Light</span></label>
+        <label><input type="radio" name="appearance" value="dark"><span>Dark</span></label>
+      </div>
+    </fieldset>
     <p>© 2026 Lance Mikaelo Enriquez</p>
-    <p>This site sets no cookies and loads nothing from other servers.</p>
+    <p>This site sets no cookies and loads nothing from other servers. Light or Dark, once picked, is kept in this browser only.</p>
     <p>Apple, iPhone, Apple Watch and Dynamic Island are trademarks of Apple Inc., registered in the U.S. and other countries and regions. App Store is a service mark of Apple Inc., registered in the U.S. and other countries and regions. Other apps named on this site belong to their owners. RingMeFor isn't affiliated with them.</p>
   </div>
 </footer>
+<script src="theme.js" defer></script>
 </body>
 </html>

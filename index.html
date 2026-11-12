@@ -18,7 +18,17 @@
 <link rel="preload" href="fonts/Archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="site.css">
 <script>
-document.documentElement.classList.add("js");
+// The theme picked on this site (theme.js), applied before the page draws.
+(function () {
+  var root = document.documentElement;
+  root.classList.add("js");
+  try {
+    var theme = localStorage.getItem("ringmefor-theme");
+    if (theme === "light" || theme === "dark") root.setAttribute("data-theme", theme);
+  } catch (error) {}
+})();
+</script>
+<script>
 // Links to help topics used to point here (index.html#restart): they open the help page now.
 (function () {
   var topics = ["help","good-to-know","set-up","add-app","on-off","stopping","not-ringing","pro","questions","ios-26","keep-open","ready-made-rules","battery","low-power","focus","allow-running","restart","after-update","action-unavailable","one-alarm","wrong-message","too-many","person-rule","lock-screen","apple-watch","nightly-check","new-iphone","second-device","shortcut-twice","shortcut-wont-open","app-added","unknown-app","history-unexpected","messages","free-version","calls-texts","internet","pause","siri","language","accessibility","removing","contact"];
@@ -39,6 +49,7 @@ document.documentElement.classList.add("js");
         <a href="#price">Price</a>
         <a href="help.html">Help</a>
       </nav>
+    <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Dark mode"><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
     </header>
 
     <div class="first-body">
@@ -84,7 +95,7 @@ document.documentElement.classList.add("js");
     <ol class="log">
       <li class="quiet"><time datetime="07:31">07:31</time><p><span class="app">Gmail</span> Weekly digest: your top stories</p><span class="what">stayed quiet</span></li>
       <li class="run"><span>18 more stayed quiet</span></li>
-      <li class="rang"><p class="app">Microsoft Teams, Alex Morgan</p><time datetime="09:35">09:35</time><p class="msg">Client call moved up. Join ASAP?</p><p class="rule">Rang for your rule: Ring me for Microsoft Teams when it's from Alex Morgan.</p></li>
+      <li class="rang"><p class="app">Microsoft Teams, Alex Morgan</p><time datetime="09:35">09:35</time><p class="msg">Client call moved up. Join ASAP?</p><p class="rule">Rang for your Work group's rule: Ring me for Slack, Microsoft Teams and Outlook when it's from Alex <span class="nowrap">Morgan.&nbsp;<span class="mark">Pro</span></span></p></li>
       <li class="run"><span>27 more stayed quiet</span></li>
       <li class="quiet"><time datetime="11:52">11:52</time><p><span class="app">Slack, #random</span> Anyone up for lunch?</p><span class="what">stayed quiet</span></li>
       <li class="run"><span>9 more stayed quiet</span></li>
@@ -170,7 +181,7 @@ document.documentElement.classList.add("js");
           <li><span class="lede">Test with the Phone Locked</span> runs the whole path, from a notification to an alarm.</li>
           <li><span class="lede">An optional nightly check</span> tells you if the shortcut stops answering.</li>
           <li><span class="lede">Why Didn't It Ring?</span> looks at the shortcut, the app's rules and the alarm permission.</li>
-          <li><span class="lede">Test a Message</span> shows whether a message you type would ring.</li>
+          <li><span class="lede">Check a message</span>, at the top of Why Didn't It Ring?, shows whether a message you type would ring, and which rule.</li>
           <li><span class="lede">History</span> shows what rang and what was skipped, and why.</li>
         </ul>
       </div>
@@ -183,7 +194,7 @@ document.documentElement.classList.add("js");
     <h2 id="keep-title">Keep it on my iPhone.</h2>
     <div class="prose">
       <p>No account, no server, no internet needed. RingMeFor checks your notifications on your iPhone, and your rules and History stay there. Nothing is sent to the developer or anyone else. Read the <a href="privacy.html">privacy policy</a>.</p>
-      <p>iCloud sync can keep your apps, rules and alarm settings the same on your iPhones, through your own iCloud <span class="nowrap">account.&nbsp;<span class="mark">1.0.1 and later</span></span></p>
+      <p>iCloud sync keeps your apps, groups, rules and alarm settings the same on your iPhones, through your own iCloud account. History stays on each iPhone. Export makes a file of your apps and rules that you keep.</p>
       <p>RingMeFor is made by Lance Mikaelo Enriquez (Philippines). Write to <a href="mailto:lancemikaelo.enriquez@gmail.com">lancemikaelo.enriquez@gmail.com</a>.</p>
     </div>
   </div>
@@ -195,11 +206,11 @@ document.documentElement.classList.add("js");
     <div class="two">
       <div>
         <h3>Free</h3>
-        <p>One app with one rule, with no time limit.</p>
+        <p>One app with one rule, with no time limit. Words, people, patterns, repeats, quiet time, vibrate first and count down first are all in it.</p>
       </div>
       <div>
         <h3>Pro</h3>
-        <p><span data-config="price">$4.99</span>, paid once, with no subscription. Every app, unlimited rules, hours and days for each rule, Ring again, a sound for each rule, and the Ring Alarm action for your own shortcuts.</p>
+        <p><span data-config="price">$4.99</span>, paid once, with no subscription. Every app, unlimited rules, times and days for each rule, and Ring again. 14 alarm sounds, your own sounds and Loudness. Groups of apps with rules for all of them and a colour of their own. 1,000 entries of History, and the Ring Alarm action for your own shortcuts.</p>
       </div>
     </div>
   </div>
@@ -219,11 +230,11 @@ document.documentElement.classList.add("js");
       </details>
       <details>
         <summary>Does it read or keep my messages?</summary>
-        <p>RingMeFor checks each notification against your rules on your iPhone and keeps a short History there. Nothing is sent to the developer or anyone else; iCloud sync (1.0.1 and later) uses your own iCloud account. Read the <a href="privacy.html">privacy policy</a>.</p>
+        <p>RingMeFor checks each notification against your rules on your iPhone and keeps a short History there. Nothing is sent to the developer or anyone else; iCloud sync uses your own iCloud account, and never carries your notifications or History. Read the <a href="privacy.html">privacy policy</a>.</p>
       </details>
       <details>
         <summary>What if it didn't ring?</summary>
-        <p>Open the app and tap “Why didn't it ring?”: it checks the shortcut, the app's rules and the alarm permission. The <a href="help.html">help page</a> covers the rest.</p>
+        <p>In RingMeFor, tap the app, then Why Didn't It Ring?: it checks the shortcut, the app's rules and the alarm permission, and a message you type. The <a href="help.html">help page</a> covers the rest.</p>
       </details>
       <details>
         <summary>Doesn't Focus already do this?</summary>
@@ -242,12 +253,21 @@ document.documentElement.classList.add("js");
       <a href="press.html">Press</a>
       <a href="mailto:lancemikaelo.enriquez@gmail.com">lancemikaelo.enriquez@gmail.com</a>
     </nav>
+    <fieldset class="appearance">
+      <legend>Appearance</legend>
+      <div class="segment">
+        <label><input type="radio" name="appearance" value="system"><span>System</span></label>
+        <label><input type="radio" name="appearance" value="light"><span>Light</span></label>
+        <label><input type="radio" name="appearance" value="dark"><span>Dark</span></label>
+      </div>
+    </fieldset>
     <p>© 2026 Lance Mikaelo Enriquez</p>
-    <p>This site sets no cookies and loads nothing from other servers.</p>
+    <p>This site sets no cookies and loads nothing from other servers. Light or Dark, once picked, is kept in this browser only.</p>
     <p>Apple, iPhone, Apple Watch and Dynamic Island are trademarks of Apple Inc., registered in the U.S. and other countries and regions. App Store is a service mark of Apple Inc., registered in the U.S. and other countries and regions. Other apps named on this site belong to their owners. RingMeFor isn't affiliated with them.</p>
   </div>
 </footer>
 
 <script src="home.js" defer></script>
+<script src="theme.js" defer></script>
 </body>
 </html>
