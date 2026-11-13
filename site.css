@@ -1369,3 +1369,43 @@ html:not(.js) .tour-phone .phone-screen img:not(:first-child) { display: none; }
   .js .tour-phone .phone-screen img { transition: none; }
   .tour.is-playing .tour-item[aria-pressed="true"] .tour-time { animation: none; opacity: 0; }
 }
+
+/* ---------- Links within the page (scroll.js) ----------
+   The header's links underline from the left on hover. A section reached by a link has its
+   heading underlined in indigo, drawn left to right, held, then faded: the first screen's
+   underline, in the ringing colour. */
+
+.site-header nav a {
+  background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 1px;
+  padding-bottom: 2px;
+  transition: background-size 260ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.site-header nav a:hover,
+.site-header nav a:focus-visible { text-decoration: none; background-size: 100% 1px; }
+
+.arrived { position: relative; width: fit-content; }
+.arrived::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.1em;
+  height: max(3px, 0.08em);
+  border-radius: 2px;
+  background: var(--indigo);
+  transform-origin: left;
+  animation: arrived 2.4s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+  pointer-events: none;
+}
+@keyframes arrived {
+  0% { transform: scaleX(0); opacity: 1; }
+  25% { transform: scaleX(1); opacity: 1; }
+  70% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+[tabindex="-1"]:focus { outline: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header nav a { transition: none; }
+  .arrived::after { display: none; }
+}
