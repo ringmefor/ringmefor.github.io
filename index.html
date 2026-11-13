@@ -16,7 +16,7 @@
 <link rel="icon" href="images/favicon-64.png" sizes="64x64">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="preload" href="fonts/Archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="site.css?v=fa4cbc3b">
+<link rel="stylesheet" href="site.css?v=d443721d">
 <script>
 // The theme picked on this site (theme.js), applied before the page draws.
 (function () {
@@ -43,10 +43,12 @@
   <div class="wrap">
     <header class="site-header">
       <a class="wordmark" href="./">RingMeFor</a>
-      <nav aria-label="Main">
-        <a href="rulebook.html">Rulebook</a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" aria-label="Main">
         <a href="#how-it-works">How it works</a>
+        <a href="#setup">Setup</a>
         <a href="#price">Price</a>
+        <a href="rulebook.html">Rulebook</a>
         <a href="help.html">Help</a>
       </nav>
     <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Dark mode"><svg class="icon-moon" width="21" height="21" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg><svg class="icon-sun" width="21" height="21" viewBox="0 0 24 24" aria-hidden="true" hidden><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
@@ -87,7 +89,7 @@
   </div>
 </section>
 
-<section class="section tour" id="app" aria-labelledby="tour-title">
+<section class="section tour" id="how-it-works" aria-labelledby="tour-title">
   <div class="wrap">
     <div class="tour-body">
       <div class="tour-text">
@@ -171,7 +173,7 @@
   </div>
 </section>
 
-<section class="section how" id="how-it-works" aria-labelledby="how-title">
+<section class="section how" id="setup" aria-labelledby="how-title">
   <div class="wrap">
     <h2 id="how-title">Tell me how it connects.</h2>
     <p class="lead">iOS doesn't let one app read another app's notifications, so RingMeFor works through Apple's Shortcuts app. The RingMeFor shortcut's automation hands each notification from your chosen apps to RingMeFor. RingMeFor checks it against your rules, on your iPhone. If it matches, an iOS alarm rings with Stop and Snooze on the Lock Screen and in the Dynamic Island; if not, nothing happens.</p>
@@ -304,7 +306,7 @@
 
 <script src="home.js?v=91f752f2" defer></script>
 <script src="tour.js?v=32f6e0aa" defer></script>
-<script src="scroll.js?v=88b182c2" defer></script>
+<script src="scroll.js?v=4484f1fb" defer></script>
 <script src="theme.js?v=ffcca006" defer></script>
 </body>
 </html>

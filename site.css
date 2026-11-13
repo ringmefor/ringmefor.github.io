@@ -235,11 +235,77 @@ time, .tabular { font-variant-numeric: tabular-nums; }
 .appearance input:checked + span { background: var(--ink); color: var(--on-ink); }
 .appearance input:focus-visible + span { outline: 3px solid var(--indigo); outline-offset: 2px; }
 
+/* Phones: the links fold into Menu, which opens them as a list under the header, each a full
+   44-point row. Without JavaScript they wrap onto a second line instead. */
+.menu-toggle { display: none; }
+
 @media (max-width: 600px) {
-  .site-header { height: 56px; gap: 12px; }
+  .site-header { position: relative; height: 56px; gap: 12px; }
   .wordmark { font-size: 17px; }
-  .site-header nav { gap: 10px; font-stretch: 78%; }
-  .js .theme-toggle { margin: 0 -12px 0 -10px; }
+  .site-header nav { flex-wrap: wrap; justify-content: flex-end; gap: 4px 14px; font-stretch: 78%; }
+  .js .theme-toggle { margin: 0 -12px 0 -4px; }
+
+  .js .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    height: 44px;
+    margin-left: auto;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 22px;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: var(--t-ui);
+    font-weight: 450;
+    cursor: pointer;
+  }
+  .js .menu-toggle:hover { background: var(--hairline); }
+  .js .menu-toggle[aria-expanded="true"] { background: var(--ink); color: var(--ground); }
+
+  .js .site-header nav {
+    position: absolute;
+    z-index: 20;
+    top: 100%;
+    left: calc(-1 * var(--gutter));
+    right: calc(-1 * var(--gutter));
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: 6px var(--gutter) 18px;
+    background: var(--ground);
+    border-bottom: 1px solid var(--hairline);
+    box-shadow: 0 18px 30px -22px rgba(0, 0, 0, 0.35);
+    font-size: 28px;
+    font-weight: 300;
+    font-stretch: 100%;
+    letter-spacing: -0.01em;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 180ms ease-out, transform 220ms cubic-bezier(0.22, 0.61, 0.36, 1), visibility 0s linear 220ms;
+  }
+  .js .site-header.is-open nav {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity 180ms ease-out, transform 220ms cubic-bezier(0.22, 0.61, 0.36, 1), visibility 0s;
+  }
+  .js .site-header nav a {
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    padding: 0;
+    background: none;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .js .site-header nav a:last-child { border-bottom: 0; }
+  .js .site-header nav a[aria-current="page"] { font-weight: 600; }
+}
+
+@media (max-width: 600px) and (prefers-reduced-motion: reduce) {
+  .js .site-header nav, .js .site-header.is-open nav { transform: none; transition: none; }
 }
 
 /* ---------- Buttons ---------- */
@@ -1382,6 +1448,8 @@ html:not(.js) .tour-phone .phone-screen img:not(:first-child) { display: none; }
 }
 .site-header nav a:hover,
 .site-header nav a:focus-visible { text-decoration: none; background-size: 100% 1px; }
+/* The page you're on keeps its underline. */
+.site-header nav a[aria-current="page"] { background-size: 100% 1px; }
 
 .arrived { position: relative; width: fit-content; }
 .arrived::after {

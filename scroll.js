@@ -91,6 +91,34 @@
     scrollTo(target);
   });
 
+  // Phones: Menu opens the header's links, and anything else closes them: a link, Escape, a tap
+  // outside, or the page growing wide enough to show them all.
+  var header = document.querySelector(".site-header");
+  var menu = header && header.querySelector(".menu-toggle");
+  if (menu) {
+    var setOpen = function (open, refocus) {
+      header.classList.toggle("is-open", open);
+      menu.setAttribute("aria-expanded", open ? "true" : "false");
+      menu.textContent = open ? "Close" : "Menu";
+      if (!open && refocus) menu.focus();
+    };
+    menu.addEventListener("click", function () {
+      var open = menu.getAttribute("aria-expanded") !== "true";
+      setOpen(open, false);
+      if (open) { var first = header.querySelector("nav a"); if (first) first.focus(); }
+    });
+    header.querySelector("nav").addEventListener("click", function (event) {
+      if (event.target.closest("a")) setOpen(false, false);
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && header.classList.contains("is-open")) setOpen(false, true);
+    });
+    document.addEventListener("click", function (event) {
+      if (header.classList.contains("is-open") && !header.contains(event.target)) setOpen(false, false);
+    });
+    window.matchMedia("(max-width: 600px)").addEventListener("change", function (m) { if (!m.matches) setOpen(false, false); });
+  }
+
   // Arriving from another page (index.html#price): the browser has already scrolled there.
   if (location.hash) {
     var first = document.getElementById(decodeURIComponent(location.hash.slice(1)));
