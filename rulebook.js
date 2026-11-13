@@ -138,10 +138,10 @@
     return "writes";
   }
 
-  // Hours and Ring again need RingMeFor Pro.
+  // Hours, Ring again and any sound but RingMeFor's own (the default) need RingMeFor Pro.
   function isPro(rule) {
     return hours(rule).enabled || !!rule.repeatUntilStopped ||
-      (!!rule.sound && rule.sound !== "siren") || (!!rule.boost && rule.boost !== "off");
+      (!!rule.sound && rule.sound !== "signature") || (!!rule.boost && rule.boost !== "off");
   }
 
   // The app's names for its alarm sounds (AlarmSound.displayName) and Boost levels.
@@ -237,7 +237,7 @@
         ? " during my shift, " + start + " to " + end + " " + days
         : ", " + days + " from " + start + " to " + end;
     }
-    if (rule.sound && rule.sound !== "siren") {
+    if (rule.sound && rule.sound !== "signature") {
       html += rule.sound === "silent" ? ", with no sound, just vibration"
         : SOUNDS[rule.sound] ? ", with the " + SOUNDS[rule.sound] + " sound" : ", with a sound of its own";
     }

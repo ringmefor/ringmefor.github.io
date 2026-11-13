@@ -246,7 +246,7 @@
       return;
     }
     if (!audio) {
-      audio = new Audio("sounds/hi-lo.mp3");
+      audio = new Audio("sounds/ringmefor.mp3");
       audio.addEventListener("ended", function () { hearButton.setAttribute("aria-pressed", "false"); });
     }
     audio.currentTime = 0;
