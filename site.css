@@ -862,7 +862,72 @@ time, .tabular { font-variant-numeric: tabular-nums; }
 
 /* ---------- Charge me once ---------- */
 
-.price .two p { max-width: 30em; }
+/* Price: Free as a quiet slab, Pro ringing, in indigo with its glow, the way the first
+   screen's notification rings. */
+.plans {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin-top: clamp(32px, 4vw, 56px);
+  align-items: stretch;
+}
+.plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 3vw, 40px);
+  border-radius: 28px;
+  background: var(--slab);
+}
+.plan h3 { margin: 0; font-size: var(--t-lead); font-weight: 450; }
+.plan-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+  margin: 10px 0 20px;
+  font-size: clamp(48px, 5.4vw, 72px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.plan > p:not(.plan-price) { max-width: 30em; color: var(--muted); }
+
+.plan-pro { background: var(--indigo); color: #fff; }
+.plan-pro::before {
+  content: "";
+  position: absolute;
+  inset: -12px -8px;
+  z-index: -1;
+  border-radius: 36px;
+  background: rgba(99, 91, 255, 0.5);
+  filter: blur(26px);
+}
+.plan-pro h3 { font-weight: 900; font-stretch: 125%; letter-spacing: -0.01em; }
+.plan-pro .plan-price { font-weight: 900; font-stretch: 112%; letter-spacing: -0.035em; }
+.plan-once { font-size: var(--t-ui); font-weight: 450; font-stretch: 100%; letter-spacing: 0; color: #fff; }
+.plan-pro > p:not(.plan-price) { color: #fff; }
+.plan-get {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  margin-top: auto;
+  padding: 0 24px;
+  border-radius: 24px;
+  background: #fff;
+  color: var(--indigo);
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 160ms ease-out, box-shadow 160ms ease-out;
+}
+.plan-pro > p:not(.plan-price) { margin-bottom: 28px; }
+.plan-get:hover { transform: translateY(-1px); box-shadow: 0 8px 20px -10px rgba(0, 0, 0, 0.45); text-decoration: none; }
+.plan-get:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+@media (max-width: 760px) { .plans { grid-template-columns: 1fr; gap: 28px; } }
+@media (prefers-reduced-motion: reduce) { .plan-get { transition: none; } .plan-get:hover { transform: none; } }
 
 /* ---------- Questions ---------- */
 
