@@ -24,10 +24,10 @@
   var EXAMPLES = [
     { word: "outage",
       quiet: [["S", "Slack, #random", "Anyone up for lunch?"], ["G", "Gmail", "Weekly digest: your top stories"], ["O", "Outlook", "Room booking confirmed"]],
-      ring: ["S", "Slack, #incidents", "Checkout outage, paging on call"] },
-    { word: "Priya",
+      ring: ["S", "Slack, #on-call", "Database outage in eu-west"] },
+    { word: "Nadia",
       quiet: [["S", "Slack, #design", "New mockups are up for review"], ["G", "Gmail", "Your receipt for October"], ["T", "Microsoft Teams, #general", "Holiday rota posted"]],
-      ring: ["S", "Slack, Priya Shah", "Are you around? Need you on the checkout fix"] },
+      ring: ["S", "Slack, Nadia Brooks", "Are you around? Need you on the release"] },
     { word: "moved up",
       quiet: [["S", "Slack, #random", "Cake in the kitchen"], ["O", "Outlook", "Your weekly report is ready"], ["G", "Gmail", "Webinar starts Thursday"]],
       ring: ["T", "Microsoft Teams, Alex Morgan", "Client call moved up. Join ASAP?"] },

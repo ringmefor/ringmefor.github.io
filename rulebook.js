@@ -148,7 +148,8 @@
   var SOUNDS = { standard: "Standard alarm", signature: "RingMeFor", siren: "Hi-Lo", klaxon: "Reactor", buzzer: "Hornet",
     beep: "Bedside", pulse: "On Call", oldPhone: "Rotary", eightBit: "Arcade", rise: "Liftoff", melody: "Kalimba",
     chime: "Intercom", clean: "Boardroom", birds: "Dawn Chorus", silent: "Vibrate only" };
-  var BOOSTS = { loud: "Loud", louder: "Louder", loudest: "Loudest" };
+  // Loudness levels in a rule link: how many decibels louder than the sound itself.
+  var LOUDNESS_DB = { loud: 4, louder: 8, loudest: 12 };
 
   // Which parts the sentence has. It's set by the rule as written, so emptying a part while
   // editing leaves it in place to fill again.
@@ -241,7 +242,7 @@
       html += rule.sound === "silent" ? ", with no sound, just vibration"
         : SOUNDS[rule.sound] ? ", with the " + SOUNDS[rule.sound] + " sound" : ", with a sound of its own";
     }
-    if (rule.boost && BOOSTS[rule.boost]) html += ", at " + BOOSTS[rule.boost] + " loudness";
+    if (rule.boost && LOUDNESS_DB[rule.boost]) html += ", " + LOUDNESS_DB[rule.boost] + " dB louder";
     if (rule.repeatUntilStopped) html += ", and ring again until I stop it";
     html += ".";
     // The mark stays on the line with the sentence's last word.

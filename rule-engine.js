@@ -1,5 +1,5 @@
-// How RingMeFor decides whether a notification rings: RuleEngine.match and ActiveHours.contains from
-// the app (RingMeFor/RuleEngine.swift, RingMeFor/Models.swift), line for line, so a test on the
+// How RingMeFor decides whether a notification rings: the app's rule matching and time windows
+// (RingMeFor/RuleEngine.swift, RingMeFor/Models.swift), line for line, so a test on the
 // website gives the app's answer. RingMeForTests/Logic/rule-cases.json is checked against both: by
 // RuleCasesTests in the app's logic tests, and by tools/check_rule_cases.js against this file.
 // Patterns (regular expressions) aren't here: JavaScript's differ from the app's, so pages leave
@@ -157,8 +157,8 @@
     return null;
   }
 
-  // ActiveHours.contains, for a weekday (1 is Sunday, 7 is Saturday) and a minute of the day.
-  // Overnight windows: the part after midnight belongs to the day the window started.
+  // Whether a rule's time window covers a weekday (1 is Sunday, 7 is Saturday) and a minute of the day.
+  // A window that runs past midnight counts from its first day: Monday 22:00 to 07:00 covers Tuesday 01:30.
   function hoursContain(hours, weekday, minute) {
     if (!hours || !hours.enabled) return true;
     var start = hours.startMinute === undefined ? 22 * 60 : hours.startMinute;

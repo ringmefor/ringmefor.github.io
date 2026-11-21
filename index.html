@@ -69,7 +69,7 @@
           <li class="slab static"><span class="tile">S</span><span class="app">Slack, #random</span><span class="note">stayed quiet</span><span class="msg">Anyone up for lunch?</span></li>
           <li class="slab static"><span class="tile">G</span><span class="app">Gmail</span><span class="note">stayed quiet</span><span class="msg">Weekly digest: your top stories</span></li>
           <li class="slab static"><span class="tile">O</span><span class="app">Outlook</span><span class="note">stayed quiet</span><span class="msg">Room booking confirmed</span></li>
-          <li class="slab static ringing"><span class="tile">S</span><span class="app">Slack, #incidents</span><span class="note"></span><span class="msg">Checkout outage, paging on call</span></li>
+          <li class="slab static ringing"><span class="tile">S</span><span class="app">Slack, #on-call</span><span class="note"></span><span class="msg">Database outage in eu-west</span></li>
         </ol>
         <div class="alarm-row" hidden>
           <button class="button stop" type="button">Stop</button>
@@ -137,16 +137,16 @@
       <li class="run"><span>9 more stayed quiet</span></li>
       <li class="rang"><p class="app">Calendar</p><time datetime="13:50">13:50</time><p class="msg">Board review starts in 10 minutes</p><p class="rule">Rang for your rule: Ring me for Calendar when it says “board”.</p></li>
       <li class="run"><span>36 more stayed quiet</span></li>
-      <li class="quiet"><time datetime="15:20">15:20</time><p><span class="app">Slack, #incidents</span> Staging is down for a deploy</p><span class="what">stayed quiet: outside the rule's hours</span></li>
+      <li class="quiet"><time datetime="15:20">15:20</time><p><span class="app">Slack, #on-call</span> Staging unreachable during the deploy</p><span class="what">stayed quiet: outside the rule's hours</span></li>
       <li class="run"><span>46 more stayed quiet</span></li>
       <li class="quiet"><time datetime="18:05">18:05</time><p><span class="app">Outlook</span> Room booking confirmed</p><span class="what">stayed quiet</span></li>
       <li class="run"><span>23 more stayed quiet</span></li>
-      <li class="rang"><p class="app">Slack, #incidents</p><time datetime="22:41">22:41</time><p class="msg">Checkout is down, paging on call</p><p class="rule">Rang for your rule: Ring me for Slack when it says “down”, on weeknights from 22:00 to <span class="nowrap">07:00.&nbsp;<span class="mark">Pro</span></span></p></li>
+      <li class="rang"><p class="app">Slack, #on-call</p><time datetime="22:41">22:41</time><p class="msg">Database unreachable</p><p class="rule">Rang for your rule: Ring me for Slack when it says “unreachable”, on weeknights from 22:00 to <span class="nowrap">07:00.&nbsp;<span class="mark">Pro</span></span></p></li>
       <li class="run"><span>6 more stayed quiet</span></li>
       <li class="night">
         <div class="night-inner">
           <div class="night-log">
-            <div class="ring"><p class="app">Slack, #incidents</p><time datetime="03:40">03:40</time><p class="msg">sev1: payments API is failing</p><p class="rule">Rang for your rule: Ring me for Slack when it says “sev1”, and ring again if I sleep through <span class="nowrap">it.&nbsp;<span class="mark">Pro</span></span></p></div>
+            <div class="ring"><p class="app">Slack, #on-call</p><time datetime="03:40">03:40</time><p class="msg">P1 error rate at 30%</p><p class="rule">Rang for your rule: Ring me for Slack when it says “P1”, and ring again if I sleep through <span class="nowrap">it.&nbsp;<span class="mark">Pro</span></span></p></div>
             <div class="again"><time datetime="03:42">03:42</time><p>Rang again. Stopped at 03:43.</p></div>
           </div>
           <figure class="capture">
@@ -180,7 +180,7 @@
 
     <ol class="path" aria-label="A notification's path">
       <li class="path-start">
-        <span class="slab mini"><span class="tile">S</span><span class="app">Slack, #incidents</span><span class="note"></span><span class="msg">Checkout outage, paging on call</span></span>
+        <span class="slab mini"><span class="tile">S</span><span class="app">Slack, #on-call</span><span class="note"></span><span class="msg">Database outage in eu-west</span></span>
         <span class="path-label">A notification arrives</span>
       </li>
       <li><span class="path-label">Shortcuts hands it to RingMeFor</span></li>
@@ -280,7 +280,7 @@
   </div>
 </footer>
 
-<script src="home.js?v=1542464e" defer></script>
+<script src="home.js?v=845a2ab3" defer></script>
 <script src="tour.js?v=32f6e0aa" defer></script>
 <script src="scroll.js?v=4484f1fb" defer></script>
 <script src="theme.js?v=ffcca006" defer></script>
