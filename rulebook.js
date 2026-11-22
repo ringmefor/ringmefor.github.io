@@ -141,15 +141,20 @@
   // Hours, Ring again and any sound but RingMeFor's own (the default) need RingMeFor Pro.
   function isPro(rule) {
     return hours(rule).enabled || !!rule.repeatUntilStopped ||
-      (!!rule.sound && rule.sound !== "signature") || (!!rule.boost && rule.boost !== "off");
+      (!!rule.sound && rule.sound !== "signature") || volume(rule) !== 0;
   }
 
-  // The app's names for its alarm sounds (AlarmSound.displayName) and Boost levels.
+  // The app's names for its alarm sounds (AlarmSound.displayName).
   var SOUNDS = { standard: "Standard alarm", signature: "RingMeFor", siren: "Hi-Lo", klaxon: "Reactor", buzzer: "Hornet",
     beep: "Bedside", pulse: "On Call", oldPhone: "Rotary", eightBit: "Arcade", rise: "Liftoff", melody: "Kalimba",
     chime: "Intercom", clean: "Boardroom", birds: "Dawn Chorus", silent: "Vibrate only" };
-  // Loudness levels in a rule link: how many decibels louder than the sound itself.
-  var LOUDNESS_DB = { loud: 4, louder: 8, loudest: 12 };
+  // A rule's volume: decibels next to the sound as it comes. Links from RingMeFor 1.0.1 have a
+  // level ("boost") instead, read here as its decibels.
+  var LEVEL_DB = { off: 0, loud: 4, louder: 8, loudest: 12 };
+  function volume(rule) {
+    if (typeof rule.volume === "number" && isFinite(rule.volume)) return Math.max(-18, Math.min(12, Math.round(rule.volume)));
+    return LEVEL_DB[rule.boost] || 0;
+  }
 
   // Which parts the sentence has. It's set by the rule as written, so emptying a part while
   // editing leaves it in place to fill again.
@@ -242,7 +247,9 @@
       html += rule.sound === "silent" ? ", with no sound, just vibration"
         : SOUNDS[rule.sound] ? ", with the " + SOUNDS[rule.sound] + " sound" : ", with a sound of its own";
     }
-    if (rule.boost && LOUDNESS_DB[rule.boost]) html += ", " + LOUDNESS_DB[rule.boost] + " dB louder";
+    var db = volume(rule);
+    if (db > 0) html += ", " + db + " dB louder";
+    if (db < 0) html += ", " + (-db) + " dB quieter";
     if (rule.repeatUntilStopped) html += ", and ring again until I stop it";
     html += ".";
     // The mark stays on the line with the sentence's last word.
