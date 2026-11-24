@@ -141,19 +141,19 @@
   // Hours, Ring again and any sound but RingMeFor's own (the default) need RingMeFor Pro.
   function isPro(rule) {
     return hours(rule).enabled || !!rule.repeatUntilStopped ||
-      (!!rule.sound && rule.sound !== "signature") || volume(rule) !== 0;
+      (!!rule.sound && rule.sound !== "signature") || volume(rule) !== 0 ||
+      (typeof rule.boost === "string" && rule.boost !== "off");
   }
 
   // The app's names for its alarm sounds (AlarmSound.displayName).
   var SOUNDS = { standard: "Standard alarm", signature: "RingMeFor", siren: "Hi-Lo", klaxon: "Reactor", buzzer: "Hornet",
     beep: "Bedside", pulse: "On Call", oldPhone: "Rotary", eightBit: "Arcade", rise: "Liftoff", melody: "Kalimba",
     chime: "Intercom", clean: "Boardroom", birds: "Dawn Chorus", silent: "Vibrate only" };
-  // A rule's volume: decibels next to the sound as it comes. Links from RingMeFor 1.0.1 have a
-  // level ("boost") instead, read here as its decibels.
-  var LEVEL_DB = { off: 0, loud: 4, louder: 8, loudest: 12 };
+  // A rule's volume: decibels next to the sound as it comes. Links from RingMeFor 1.0.1 carry an
+  // older field (boost) instead: the app reads it, and isPro above counts any value but off.
   function volume(rule) {
     if (typeof rule.volume === "number" && isFinite(rule.volume)) return Math.max(-18, Math.min(12, Math.round(rule.volume)));
-    return LEVEL_DB[rule.boost] || 0;
+    return 0;
   }
 
   // Which parts the sentence has. It's set by the rule as written, so emptying a part while
@@ -346,7 +346,7 @@
     var h = hours(rule);
     var extras = [];
     if (h.enabled) {
-      extras.push("Under <strong>When</strong>, turn on <strong>Only at certain times and days</strong>, then set <strong>From</strong> to " +
+      extras.push("Under <strong>When</strong>, turn on <strong>Only on a schedule</strong>, then set <strong>From</strong> to " +
         clock(h.startMinute) + ", <strong>Until</strong> to " + clock(h.endMinute) + " and <strong>Days</strong> to " +
         esc(daysKey(h.weekdays) ? DAY_LABELS[daysKey(h.weekdays)] : shortDays(h.weekdays)) + ". " + PRO);
     }
@@ -454,7 +454,7 @@
     if (rule.wholeWords === false && rule.mode !== "everything") lines.push("Its words also match inside longer words.");
     if (+rule.cooldownMinutes > 0) lines.push("After an alarm, it stays quiet for " + minutesText(Math.round(+rule.cooldownMinutes)) + ".");
     if (+rule.countdownSeconds > 0) lines.push("It counts down " + Math.round(+rule.countdownSeconds) + " seconds before it rings.");
-    if (rule.vibrateFirst === true) lines.push("It vibrates first.");
+    if (rule.vibrateFirst === true) lines.push("It vibrates, then rings.");
     return lines;
   }
 
